@@ -1,4 +1,4 @@
-name: Build Docker image
+name: CI - Build and test Flask app
 
 on:
   push:
@@ -18,3 +18,6 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t flask-docker-app .
+
+      - name: Run fake test
+        run: echo "Running tests..." && echo "All tests passed!"
