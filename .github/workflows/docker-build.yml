@@ -4,10 +4,14 @@ on:
   push:
     branches:
       - main
+      - staging
+      - dev
 
 jobs:
   build-push-deploy:
     runs-on: self-hosted
+
+    environment: ${{ github.ref_name }}  # 👈 this dynamically uses the branch name
 
     steps:
       - name: Checkout code
@@ -28,9 +32,6 @@ jobs:
           context: .
           push: true
           tags: tomabucur/flask-docker-app:latest
-
-      - name: Run fake test
-        run: echo "Running tests..." && echo "All tests passed!"
 
       - name: Deploy with docker-compose
         run: |
