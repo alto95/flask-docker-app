@@ -27,7 +27,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: alto95/flask-docker-app:latest
+          tags: tomaadrian/flask-docker-app:latest
 
       - name: Run fake test
         run: echo "Running tests..." && echo "All tests passed!"
