@@ -33,14 +33,8 @@ jobs:
         run: echo "Running tests..." && echo "All tests passed!"
 
       - name: Deploy to Ubuntu device
-#        uses: appleboy/ssh-action@v0.1.10
-#        with:
-#          host: ${{ secrets.DEPLOY_HOST }}
-#          username: ${{ secrets.DEPLOY_USER }}
-#          key: ${{ secrets.DEPLOY_KEY }}
-#          script: |
-          run: |
-            docker pull tomabucur/flask-docker-app:latest
-            docker stop flask_app || true
-            docker rm flask_app || true
-            docker run -d --restart always --name flask_app -p 5000:5000 tomabucur/flask-docker-app:latest
+        run: |
+          docker pull tomabucur/flask-docker-app:latest
+          docker stop flask_app || true
+          docker rm flask_app || true
+          docker run -d --restart always --name flask_app -p 5000:5000 tomabucur/flask-docker-app:latest
