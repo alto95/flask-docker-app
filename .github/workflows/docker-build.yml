@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+      - staging
+      - dev
 
 jobs:
   build-push-deploy:
