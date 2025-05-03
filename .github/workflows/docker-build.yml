@@ -32,9 +32,7 @@ jobs:
       - name: Run fake test
         run: echo "Running tests..." && echo "All tests passed!"
 
-      - name: Deploy to Ubuntu device
+      - name: Deploy with docker-compose
         run: |
-          docker pull tomabucur/flask-docker-app:latest
-          docker stop flask_app || true
-          docker rm flask_app || true
-          docker run -d --restart always --name flask_app -p 5000:5000 tomabucur/flask-docker-app:latest
+          docker-compose -f docker-compose.yml down
+          docker-compose -f docker-compose.yml up -d --build
