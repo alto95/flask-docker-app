@@ -41,5 +41,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git tag ${{ env.VERSION }}
-          git push https://${{ secrets.ZEN_ACCESS }}@github.com/${{ github.repository }} HEAD:main --tags
+          git push https://${{ secrets.zen-access }}@github.com/${{ github.repository }} HEAD:main --tags
 
