@@ -37,9 +37,13 @@ jobs:
           echo "new_tag=$new_tag" >> $GITHUB_OUTPUT
 
       - name: Push tag to repository
+        env:
+          GIT_TOKEN: ${{ secrets.zen-access }}
+          VERSION: ${{ env.VERSION }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git tag ${{ env.VERSION }}
-          git push https://${{ secrets.zen-access }}@github.com/${{ github.repository }} HEAD:main --tags
+          git remote set-url origin https://x-access-token:${GIT_TOKEN}@github.com/${{ github.repository }}
+          git tag $VERSION
+          git push origin $VERSION
 
