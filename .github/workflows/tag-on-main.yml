@@ -37,10 +37,7 @@ jobs:
       - name: Push tag to repository
         env:
           PAT: ${{ secrets.ACCESS_WORKFLOW_AND_REPO }}
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git remote set-url origin https://x-access-token:${PAT}@github.com/${{ github.repository }}
-          git remote -v
-          git tag ${{ steps.bump_tag.outputs.new_tag }}
-          git push origin ${{ steps.bump_tag.outputs.new_tag }}
+          TAG: ${{ steps.bump_tag.outputs.new_tag }}
+        run: | git config user.name "github-actions" git config user.email "actions@github.com" git tag $TAG git push 
+          https://x-access-token:${PAT}@github.com/${{ github.repository }} $TAG
+
