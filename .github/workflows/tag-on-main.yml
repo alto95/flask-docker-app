@@ -39,7 +39,6 @@ jobs:
       - name: Push tag to repository
         env:
           GIT_TOKEN: ${{ secrets.ACCESS_WORKFLOW_AND_REPO }}
-          VERSION: ${{ env.VERSION }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
