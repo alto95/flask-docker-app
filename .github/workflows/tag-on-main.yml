@@ -38,6 +38,8 @@ jobs:
         env:
           PAT: ${{ secrets.ACCESS_WORKFLOW_AND_REPO }}
           TAG: ${{ steps.bump_tag.outputs.new_tag }}
-        run: | git config user.name "github-actions" git config user.email "actions@github.com" git tag $TAG git push 
-          https://x-access-token:${PAT}@github.com/${{ github.repository }} $TAG
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git tag $TAG git push https://x-access-token:${PAT}@github.com/${{ github.repository }} $TAG
 
