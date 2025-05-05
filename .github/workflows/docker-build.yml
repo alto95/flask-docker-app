@@ -1,15 +1,16 @@
-name: CI - Build, Push, Deploy
+name: CI - Build, Test, Push, Deploy
 
 on:
   push:
     branches:
       - main
-      - staging
       - dev
+      - staging
 
 jobs:
-  build-push-deploy:
+  build-test-deploy:
     runs-on: self-hosted
+    environment: ${{ github.ref_name }}
 
     steps:
       - name: Checkout code
@@ -18,7 +19,6 @@ jobs:
       - name: Run unit tests
         run: |
           docker-compose run --rm test
-
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -36,10 +36,9 @@ jobs:
           push: true
           tags: tomabucur/flask-docker-app:latest
 
-      - name: Run fake test
-        run: echo "Running tests..." && echo "All tests passed!"
-
-      - name: Deploy with docker-compose
+      - name: Deploy to environment
+        if: github.ref_name == 'dev' || github.ref_name == 'staging' || github.ref_name == 'main'
+        environment: ${{ github.ref_name }}
         run: |
           docker-compose -f docker-compose.yml down
           docker-compose -f docker-compose.yml up -d --build
