@@ -1,12 +1,27 @@
+name: Tag on main push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tag:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Fetch all tags
         run: git fetch --tags
 
       - name: Get latest tag
         id: get_tag
         run: |
-          latest_tag=$(git tag --sort=-v:refname | head -n 1)
-          echo "Latest tag: $latest_tag"
-          echo "tag=$latest_tag" >> $GITHUB_OUTPUT
+          tag=$(git tag --sort=-v:refname | head -n 1)
+          echo "Latest tag: $tag"
+          echo "tag=$tag" >> $GITHUB_OUTPUT
 
       - name: Bump patch version
         id: bump_tag
