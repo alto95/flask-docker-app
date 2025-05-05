@@ -2,19 +2,26 @@
 <html>
 <head>
   <title>Flask App Frontend</title>
+ <script>
+  async function callBackend() {
+    try {
+      const response = await fetch('/api/db');
+      const data = await response.text();
+      document.getElementById("backend-result").innerHTML = data;
+    } catch (error) {
+      console.error("Failed to contact backend:", error);
+      document.getElementById("backend-result").innerHTML = "Backend unavailable.";
+    }
+  }
+
+  window.onload = callBackend;
+</script> 
 </head>
 <body>
   <h1>Hello from the frontend!</h1>
   <p>This is a static page served by NGINX.</p>
-</body>
-</html>
-1~<!DOCTYPE html>
-<html>
-<head>
-  <title>Flask App Frontend</title>
-</head>
-<body>
-  <h1>Hello from the frontend!</h1>
-  <p>This is a static page served by NGINX.</p>
+
+  <h2>Backend Response:</h2>
+  <div id="backend-result">Loading...</div>
 </body>
 </html>
