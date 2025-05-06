@@ -11,20 +11,22 @@ cd /home/zen/flask-docker-app || exit 1
 echo -e "${MAGENTA}🛡️  Checking Grafana volume permissions...${NC}"
 echo
 
-DB_PATH="grafana/grafana.db"
+GRAFANA_DIR="/home/zen/flask-docker-app/monitoring/grafana"
+DB_PATH="$GRAFANA_DIR/grafana.db"
+
 OWNER_UID=$(stat -c "%u" "$DB_PATH" 2>/dev/null || echo 0)
 
 if [ "$OWNER_UID" -ne 472 ]; then
   echo -e "${RED}⚠️  grafana.db is not owned by UID 472. Resetting volume...${NC}"
-  if [ -d "grafana" ]; then
-    BACKUP_NAME="grafana_$(date +%Y-%m-%d_%H-%M-%S)"
-    mv grafana "$BACKUP_NAME"
+  if [ -d "$GRAFANA_DIR" ]; then
+    BACKUP_NAME="monitoring/grafana_$(date +%Y-%m-%d_%H-%M-%S)"
+    mv "$GRAFANA_DIR" "$BACKUP_NAME"
     echo -e "${GREEN}📦 Old grafana/ renamed to $BACKUP_NAME${NC}"
     echo
   fi
 
-  mkdir grafana
-  sudo chown 472:472 grafana
+  mkdir -p "$GRAFANA_DIR"
+  sudo chown 472:472 "$GRAFANA_DIR"
   echo -e "${GREEN}✅ Created fresh grafana/ with UID 472 ownership.${NC}"
   echo
 else
