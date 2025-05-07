@@ -2,3 +2,12 @@
 __pycache__/
 *.pyc
 grafana/
+
+# Ignore monitoring data folders
+/monitoring/grafana
+/monitoring/prometheus-data
+/monitoring/loki-data
+
+# Ignore old grafana backups (if you still keep old ones)
+/monitoring/grafana_*
+/monitoring/grafana_broken_*
