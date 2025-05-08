@@ -1,20 +1,12 @@
-version: '3.8'
-
 services:
-  node-exporter:
-    image: prom/node-exporter
-    container_name: node-exporter
-    ports:
-      - "9100:9100"
-    restart: unless-stopped
-
   prometheus:
     image: prom/prometheus
     container_name: prometheus
-    volumes:
-      - ./prometheus:/etc/prometheus
     ports:
       - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
     restart: unless-stopped
 
   grafana:
@@ -22,12 +14,29 @@ services:
     container_name: grafana
     ports:
       - "3000:3000"
+    user: "472"
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
-      - ./grafana:/var/lib/grafana
+      - grafana-data:/var/lib/grafana
     depends_on:
       - prometheus
     restart: unless-stopped
 
+  loki:
+    image: grafana/loki:2.9.2
+    container_name: loki
+    ports:
+      - "3100:3100"
+    user: "0"  # ← runs as root
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./monitoring/loki-config.yaml:/etc/loki/local-config.yaml
+      - loki-data:/var/loki
+    restart: unless-stopped
+
+volumes:
+  prometheus-data:
+  grafana-data:
+  loki-data:

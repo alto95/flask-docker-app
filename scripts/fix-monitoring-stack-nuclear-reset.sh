@@ -12,7 +12,7 @@ echo -e "${MAGENTA}🧯 Fixing full monitoring stack (Grafana + Prometheus + Nod
 echo
 
 # Step 1: Stop & remove monitoring containers (safe cleanup only)
-docker-compose -f docker-compose.monitoring.yml down --remove-orphans
+docker compose -f docker-compose.monitoring.yml down --remove-orphans
 echo -e "${GREEN}✅ Stopped and removed monitoring containers.${NC}"
 echo
 

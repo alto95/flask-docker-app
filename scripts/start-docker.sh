@@ -9,7 +9,7 @@ NC='\033[0m'          # Reset
 echo -e "${MAGENTA}🐳 Starting main application stack (frontend + backend + db)...${NC}"
 echo
 
-if docker-compose -f /home/zen/flask-docker-app/docker-compose.yml up -d; then
+if docker compose -f /home/zen/flask-docker-app/docker-compose.yml up -d; then
   echo -e "${GREEN}✅ App containers started successfully.${NC}"
 else
   echo -e "${RED}❌ Failed to start app containers.${NC}"
