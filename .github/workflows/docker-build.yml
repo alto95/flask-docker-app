@@ -18,7 +18,7 @@ jobs:
 
       - name: Run unit tests
         run: |
-          docker-compose run --rm test
+          docker compose run --rm test
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -39,5 +39,5 @@ jobs:
       - name: Deploy to environment
         if: github.ref_name == 'dev' || github.ref_name == 'staging' || github.ref_name == 'main'
         run: |
-          docker-compose -f docker-compose.yml down --remove-orphans
-          docker-compose -f docker-compose.yml up -d --build
+          docker compose -f docker-compose.yml down --remove-orphans
+          docker compose -f docker-compose.yml up -d --build
