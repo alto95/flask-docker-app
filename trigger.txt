@@ -1,1 +1,2 @@
 # trigger workflow
+# trigger 2, bad changes to the code rn with a lot of work, need to recheck how to update this and optimize it before adding to git
